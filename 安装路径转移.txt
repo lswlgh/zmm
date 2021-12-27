@@ -1,0 +1,5 @@
+管理员cmd
+mklink /j "C:\Program Files\Docker" "E:\Docker"
+运行时C盘内没有Docker文件夹才行
+
+docker run -it -v C:\Users\666\Desktop\zmm:/soft zmm2021/tensorflow:v1

@@ -1,0 +1,7 @@
+https://www.lfd.uci.edu/~gohlke/pythonlibs/#ta-lib
+pip install ./路径.whl
+若python版本3.8,则下对应版本
+cmd输入 python
+查看版本，32bit是win32；64bit是win64；AMD64指CPU是x64的
+在cmd下 systeminfo
+系统类型中X86表示32位，X64表示64位系统
