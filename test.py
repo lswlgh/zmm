@@ -30,7 +30,7 @@ if __name__ == '__main__':
     # 创建实例，定义df，输出路径，文件名
     test1 = DrawFigure(df1, file_path, file_name='TEST1')
     # 普通作图，3D作图，作子图，作某列的图
-    t1 = test1.plot(xaxis_name='INDEX')
+    t1 = test1.plot(xaxis_name='INDEX',show=True)
     t2 = test1.plot_3dfigures(xaxis_name='INDEX', file_name='TEST2')
     t3 = test1.plot_subplots(
         xaxis_name='Index', yaxis_name='values', file_name='TEST3')
