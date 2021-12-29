@@ -118,3 +118,84 @@ print("Test accuracy:", test_scores[1])
 
 features_list = [layer.output for layer in model.layers]
 model.summary()
+
+
+class CustomDense(tf.keras.layers.Layer):
+    def __init__(self,units=32):
+        super(CustomDense,self).__init__()
+        self.units = units
+        
+    def build(self,input_shape):
+        self.w = self.add_weight(shape=(input_shape[-1],self.units),
+                                 initializer='random_normal',trainable=True)
+        self.b = self.add_weight(shape=(self.units,), initializer="random_normal", 
+                                 trainable=True)
+        
+    def call(self,inputs):
+        return tf.matmul(inputs,self.w) + self.b
+
+
+
+inputs = tf.keras.Input(shape=[784],name='digits')
+x = tf.keras.layers.Dense(64,activation='relu',name='dense_1')(inputs)
+x = tf.keras.layers.Dense(64,activation='relu',name='dense_2')(x)
+outputs = tf.keras.layers.Dense(10,activation='softmax',name='predicitons')(x)
+model = tf.keras.Model(inputs=inputs,outputs=outputs)
+
+
+(x_train, y_train), (x_test, y_test) = keras.datasets.mnist.load_data()
+x_train = x_train.reshape(60000,784).astype('float32')/255
+x_test = x_test.reshape(10000, 784).astype("float32") / 255
+
+y_train = y_train.astype("float32")
+y_test = y_test.astype("float32")
+
+x_val = x_train[-10000:]
+y_val = y_train[-10000:]
+x_train = x_train[:-10000]
+y_train = y_train[:-10000]
+
+model.compile(optimizer=keras.optimizers.RMSprop(),
+              loss = keras.losses.SparseCategoricalCrossentropy(),
+              metrics = keras.metrics.SparseCategoricalAccuracy())
+
+history = model.fit(
+    x_train,
+    y_train,
+    batch_size=64,
+    epochs=3,
+    # We pass some validation for
+    # monitoring validation loss and metrics
+    # at the end of each epoch
+    validation_data=(x_val, y_val))
+results = model.evaluate(x_test, y_test, batch_size=128)
+model.predict(x_test[:3])
+
+
+
+a = tf.constant([1,2])
+b = tf.constant([3,4])
+
+tf.cast(a,'float32')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
