@@ -90,6 +90,8 @@ fileDf.mean() #求均值，默认对列
 fileDf.mean(1) #求每行平均,生成的Series没有原本的index了
 
 #groupby:按照某个index分组，后面跟的函数是聚合方式,可以输入多个column在一个list中
-df['NewIndex'] = np.random.randint(1,10,100) #最小1，最大10，size 100的随机整数
-df.groupby(['NewIndex']).sum()
-df.groupby(['NewIndex']).sum()
+df['NewIndex'] = np.random.randint(1,10,100) #最小1，最大9，size 100的随机整数
+df['NewIndex2'] = np.random.randint(1,3,100) #最小1，最大2，size 100的随机整数
+df.groupby(['NewIndex']).sum() #同一个index下的数取平均值
+df.groupby(['NewIndex','NewIndex2']).last() #取最后一个出现的数据
+df.groupby(['NewIndex','NewIndex2']).first() #取第一个出现的数据
