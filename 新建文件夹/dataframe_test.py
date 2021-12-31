@@ -98,6 +98,15 @@ df.groupby(['NewIndex', 'NewIndex2']).last()  # 取最后一个出现的数据
 df.groupby(['NewIndex', 'NewIndex2']).first()  # 取第一个出现的数据
 df.groupby(['NewIndex', 'NewIndex2']).mean()  # 取数据的平均值
 # size跟count的区别： size计数时包含NaN值，而count不包含NaN值
-# 所以count输出的是一个和原本shape相同的dataframe
+# 所以count输出的是一个和原本shape相同的dataframe，列与列之间根据Nan数量会有微小区别
 df.groupby(['NewIndex', 'NewIndex2']).size()  # 记录某个index值出现的次数
-df.groupby(['NewIndex', 'NewIndex2']).count()
+df.groupby(['NewIndex', 'NewIndex2']).count()[['first','second']] #取特定两列，要包含一个list
+""" 7.修改数据 """
+df.iloc[1,2] = np.nan
+#剔除有缺失值的行
+df.dropna(how='any')
+#填充缺失值
+df.fillna(value=5) #用特定值填充
+#找出‘商品名称’中有空缺值的行
+df[df['商品名称'].isnull()]
+
