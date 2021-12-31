@@ -8,6 +8,7 @@
 '''
 import pandas as pd
 import numpy as np
+from pandas.core.indexes.base import Index
 """ 1.创建dataframe """
 
 # 使用numpy创建
@@ -79,4 +80,16 @@ fileDf.loc[0:3,['first','second']] #获取索引值为(0:3)的中'first','second
 fileDf[fileDf['first']>0] #利用boolean值提取“first”大于0的数据
 List1 = fileDf[fileDf['first']>0]['first'].tolist()
 fileDf[~fileDf['first'].isin(List1)&(fileDf['second']<0)] #提取“first”<0，且“second”<0的所有数据,~表示isin()方法的逆函数
-""" 5. """
+""" 6.数据操作Operations """
+#Apply:（用于dataframe，对row或column进行操作）类似于map
+df.apply(lambda x:x.mean()) #默认对每列做平均
+df.apply(lambda x:x.mean(),axis=1) #取每行平均
+
+#stats
+fileDf.mean() #求均值，默认对列
+fileDf.mean(1) #求每行平均,生成的Series没有原本的index了
+
+#groupby:按照某个index分组，后面跟的函数是聚合方式,可以输入多个column在一个list中
+df['NewIndex'] = np.random.randint(1,10,100) #最小1，最大10，size 100的随机整数
+df.groupby(['NewIndex']).sum()
+df.groupby(['NewIndex']).sum()
